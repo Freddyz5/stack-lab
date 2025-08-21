@@ -1,0 +1,9 @@
+{
+  "conventionalCommits.scopes": [
+    "web",
+    "graphql-client",
+    "graphql-api",
+    "core",
+    "db",
+  ]
+}

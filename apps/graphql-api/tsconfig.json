@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": ".",
+    "types": ["node"],
+    "declaration": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "composite": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "core/*": ["../../../packages/core/dist"],
+      "client-db/*": ["../../../packages/client-db/dist"]
+    }
+  },
+  "include": ["src", "api"],
+  "exclude": ["node_modules", ".next", "dist"],
+  "references": [
+    { "path": "../../packages/core" },
+    { "path": "../../packages/client-db" }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "graphql-client",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "generate": "node generateGenql.ts",
+    "build": "tsc -b",
+    "dev": "tsc -b --watch"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "dependencies": {
+    "@genql/cli": "^6.3.3"
+  },
+  "devDependencies": {
+    "genql": "^2.0.0",
+    "typescript": "^5.0.0"
+  }
+}

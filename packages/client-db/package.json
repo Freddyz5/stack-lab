@@ -1,0 +1,26 @@
+{
+  "name": "client-db",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "drizzle-kit": "drizzle-kit",
+    "build": "tsc"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/db/index.js",
+      "require": "./dist/db/index.js",
+      "types": "./dist/db/index.d.ts"
+    }
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "dotenv": "^16.5.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.0",
+    "tsx": "^4.19.3"
+  }
+}

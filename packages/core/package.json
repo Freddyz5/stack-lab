@@ -1,0 +1,30 @@
+{
+  "name": "core",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "echo 'Add test script here'"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "client-db": "*",
+    "decimal.js": "^10.5.0",
+    "gel": "^2.0.2",
+    "uuid-validate": "^0.0.3",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/uuid-validate": "^0",
+    "typescript": "^5.3.3"
+  }
+}

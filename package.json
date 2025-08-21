@@ -1,0 +1,50 @@
+{
+  "name": "stack-lab",
+  "private": true,
+  "scripts": {
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types",
+    "dev": "",
+    "dev:web": "turbo run dev --filter=web",
+    "dev:api": "turbo dev --filter=graphql-api",
+    "dev:mobile": "turbo start --filter=mobile",
+    "dev:both": "turbo run dev:both --parallel --filter=web --filter=graphql-api",
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=web",
+    "build:api": "turbo run build --filter=graphql-api^...",
+    "build:core": "turbo run build --filter=core",
+    "build:db": "turbo run build --filter=client-db",
+    "db:push": "yarn workspace client-db drizzle-kit push",
+    "db:generate": "yarn workspace client-db drizzle-kit generate",
+    "db:migrate": "yarn workspace client-db drizzle-kit migrate",
+    "genql:generate": "yarn workspace graphql-client generate",
+    "genql:build": "yarn workspace graphql-client build",
+    "genql:dev": "yarn workspace graphql-client dev"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "turbo": "^2.5.0",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "yarn@4.9.1",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@react-hook/media-query": "^1.1.1",
+    "add": "^2.0.6",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.42.0",
+    "formik": "^2.4.6",
+    "notistack": "^3.0.2",
+    "uuid": "^11.1.0"
+  }
+}
