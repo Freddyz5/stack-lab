@@ -13,11 +13,8 @@ export const db = drizzle({ client: sql, schema });
 export type DBClient = typeof db
 
 export { schema };
-export const { 
+export const {
   users,
-  categories,
-  boards,
-  transactions,
 } = schema;
 
 export { eq };
