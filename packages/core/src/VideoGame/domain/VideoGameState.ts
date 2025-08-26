@@ -1,5 +1,5 @@
-import { StateInvalidError } from "./Errors/StateInvalidError";
-import { ValueObject } from "./ValueObject";
+import { StateInvalidError } from "src/shared/domain/value-object/Errors/StateInvalidError";
+import { ValueObject } from "src/shared/domain/value-object/ValueObject";
 import { string as yupString } from "yup";
 
 export class State extends ValueObject<string> {

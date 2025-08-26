@@ -1,3 +1,3 @@
-import { Title } from "src/shared/domain/value-object/Title";
+import { Name } from '../../shared/domain/value-object/Name';
 
-export class VideoGameTitle extends Title {}
+export class VideoGameTitle extends Name {}

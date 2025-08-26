@@ -1,9 +1,9 @@
 import { IsActive } from '../../shared/domain/value-object/IsActive';
 import { VideoGameId } from './VideoGameId';
 import { StringValue } from 'src/shared/domain/value-object/StringValue';
-import { Difficulty } from 'src/shared/domain/value-object/Difficulty';
-import { State } from 'src/shared/domain/value-object/State';
+import { State } from './VideoGameState';
 import { VideoGameTitle } from './VideoGameTitle';
+import { VideoGameDifficulty as Difficulty } from './VideoGameDifficulty';
 
 export class VideoGame {
   readonly id: VideoGameId;

@@ -1,8 +1,8 @@
-import { DifficultyInvalidError } from "./Errors/DifficultyInvalidError";
-import { ValueObject } from "./ValueObject";
+import { DifficultyInvalidError } from "src/shared/domain/value-object/Errors/DifficultyInvalidError";
+import { ValueObject } from "src/shared/domain/value-object/ValueObject";
 import { string as yupString } from "yup";
 
-export class Difficulty extends ValueObject<string> {
+export class VideoGameDifficulty extends ValueObject<string> {
   constructor(value: string) {
     super(value);
     this.ensureIsValidDifficulty(value);
@@ -11,7 +11,7 @@ export class Difficulty extends ValueObject<string> {
   private ensureIsValidDifficulty(value: string): void {
     try {
       yupString()
-        .oneOf(["Facil", "Medio", "Dificil", "Experto"])
+        .oneOf(["facil", "medio", "dificil", "experto"])
         .required()
         .validateSync(value);
     } catch {
@@ -19,3 +19,4 @@ export class Difficulty extends ValueObject<string> {
     }
   }
 }
+
