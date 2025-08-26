@@ -12,3 +12,17 @@ export const users = pgTable("users", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   modifiedAt: timestamp("modifiedAt").notNull(),
 });
+
+// --- GAMES ---
+
+export const games = pgTable("games", {
+  id: uuid("id").primaryKey().notNull(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  genre: text("genre").default(""),
+  difficulty: text("difficulty").default(""),
+  state: text("state").default(""),
+  isActive: boolean("isActive").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  modifiedAt: timestamp("modifiedAt").notNull(),
+});
