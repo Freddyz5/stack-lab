@@ -1,0 +1,1 @@
+export {VideoGameDrizzleRepository} from './VideoGameDrizzleRepository';
