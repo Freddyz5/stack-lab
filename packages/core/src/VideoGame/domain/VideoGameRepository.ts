@@ -4,8 +4,8 @@ import { VideoGameTitle } from "./VideoGameTitle";
 
 export interface VideoGameRepository {
   save(videoGame: VideoGame): Promise<void>;
-  findById(id: VideoGameId): Promise<VideoGame | null>;
+  search(id: VideoGameId): Promise<VideoGame | null>;
   findByTitle(title: VideoGameTitle): Promise<VideoGame | null>;
   delete(id: VideoGameId): Promise<void>;
-  findAll(): Promise<VideoGame[]>;
+  searchAll(): Promise<VideoGame[]>;
 }
