@@ -15,6 +15,7 @@ export type DBClient = typeof db
 export { schema };
 export const {
   users,
+  games,
 } = schema;
 
 export { eq };
