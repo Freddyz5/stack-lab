@@ -3,8 +3,9 @@ import { VideoGame } from '../domain/VideoGame';
 import { VideoGameId } from '../domain/VideoGameId';
 import { Nullable } from 'src/shared/domain/value-object/Nullable';
 import { VideoGameTitle } from '../domain/VideoGameTitle';
+import { VideoGameRepository } from '../domain/VideoGameRepository';
 
-export class VideoGameDrizzleRepository implements VideoGameDrizzleRepository {
+export class VideoGameDrizzleRepository implements VideoGameRepository {
   protected table: typeof videoGames = videoGames;
 
   async save(videoGame: VideoGame): Promise<void> {
@@ -35,8 +36,15 @@ export class VideoGameDrizzleRepository implements VideoGameDrizzleRepository {
     return Promise.resolve();
   }
 
-  async findById(id: VideoGameId): Promise<Nullable<VideoGame>> {
-    const currentvideoGame = await db.select().from(videoGames).where(eq(videoGames.id, id.value));
+  async findById(id: VideoGameId): Promise<VideoGame | null> {
+    const currentvideoGame = await db
+    .select()
+    .from(videoGames)
+    .where(eq(videoGames.id, id.value));
+
+    if (!currentvideoGame[0]) {
+      return null;
+    }
 
     return VideoGame.fromPrimitives({
       ...currentvideoGame[0],
@@ -46,9 +54,9 @@ export class VideoGameDrizzleRepository implements VideoGameDrizzleRepository {
     });
   }
 
-  async findByTitle(title: VideoGameTitle): Promise<Nullable<VideoGame>> {
+  async findByTitle(title: VideoGameTitle): Promise<VideoGame | null> {
     const result = await db.query.games.findFirst({
-      where: eq(videoGames.title, title.value)
+      where: eq(videoGames.title, title.value),
     });
     if (!result) {
       return null;
@@ -59,14 +67,14 @@ export class VideoGameDrizzleRepository implements VideoGameDrizzleRepository {
       genre: result.genre ?? '',
       difficulty: result.difficulty ?? '',
       state: result.state ?? '',
-    })
+    });
   }
 
-  async findAll(): Promise<VideoGame[]> {
+  async searchAll(): Promise<VideoGame[]> {
     const currentVideoGames = await db
-    .select()
-    .from(videoGames)
-    .where(eq(videoGames.isActive, true));
+      .select()
+      .from(videoGames)
+      .where(eq(videoGames.isActive, true));
 
     return currentVideoGames.map((videoGame) =>
       VideoGame.fromPrimitives({
@@ -89,5 +97,4 @@ export class VideoGameDrizzleRepository implements VideoGameDrizzleRepository {
 
     return Promise.resolve();
   }
-
 }
