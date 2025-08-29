@@ -1,5 +1,5 @@
-import { PlainDataVideoGame } from 'src/VideoGame/domain/VideoGame';
-import { VideoGameRepository } from 'src/VideoGame/domain/VideoGameRepository';
+import { PlainDataVideoGame } from '../../domain/VideoGame';
+import { VideoGameRepository } from '../../domain/VideoGameRepository';
 
 export class VideoGamesSearch {
   private repository: VideoGameRepository;

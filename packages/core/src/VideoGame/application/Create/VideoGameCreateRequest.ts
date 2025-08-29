@@ -1,3 +1,3 @@
-import { PlainDataVideoGame } from "src/VideoGame/domain/VideoGame";
+import { PlainDataVideoGame } from "../../domain/VideoGame";
 
 export interface VideoGameCreateRequest extends Omit<PlainDataVideoGame, 'isActive'> {}

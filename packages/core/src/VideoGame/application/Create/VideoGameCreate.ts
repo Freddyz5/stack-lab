@@ -1,8 +1,9 @@
-import { VideoGameRepository } from "src/VideoGame/domain/VideoGameRepository";
+// import { VideoGameRepository } from "src/VideoGame/domain/VideoGameRepository";
+import { VideoGameRepository } from "../../domain/VideoGameRepository";
 import { VideoGameCreateRequest } from "./VideoGameCreateRequest";
-import { VideoGameTitle } from "src/VideoGame/domain/VideoGameTitle";
-import { VideoGame } from "src/VideoGame/domain/VideoGame";
-import { VideoGameId } from "src/VideoGame/domain/VideoGameId";
+import { VideoGameTitle } from "../../domain/VideoGameTitle";
+import { VideoGame } from "../../domain/VideoGame";
+import { VideoGameId } from "../../domain/VideoGameId";
 
 export class VideoGameCreate{
     constructor(
