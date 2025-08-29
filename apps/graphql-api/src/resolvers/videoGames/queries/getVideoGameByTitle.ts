@@ -13,7 +13,7 @@ export class GetVideoGameByTitleQuery {
   }
 }
 
-export const GetVideoGameByTitle = async (_: any, args: any) => {
+export const getVideoGameByTitle = async (_: any, args: any) => {
   const query = new GetVideoGameByTitleQuery();
   const videoGame = await query.run(args.title);
 
