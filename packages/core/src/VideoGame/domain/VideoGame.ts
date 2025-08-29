@@ -1,6 +1,6 @@
 import { IsActive } from '../../shared/domain/value-object/IsActive';
 import { VideoGameId } from './VideoGameId';
-import { StringValue } from 'src/shared/domain/value-object/StringValue';
+import { StringValue } from '../../shared/domain/value-object/StringValue';
 import { State } from './VideoGameState';
 import { VideoGameTitle } from './VideoGameTitle';
 import { VideoGameDifficulty as Difficulty } from './VideoGameDifficulty';

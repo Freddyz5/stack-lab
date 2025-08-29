@@ -1,7 +1,7 @@
 import { db, games as videoGames, eq } from 'client-db';
 import { VideoGame } from '../domain/VideoGame';
 import { VideoGameId } from '../domain/VideoGameId';
-import { Nullable } from 'src/shared/domain/value-object/Nullable';
+import { Nullable } from '../../shared/domain/value-object/Nullable';
 import { VideoGameTitle } from '../domain/VideoGameTitle';
 import { VideoGameRepository } from '../domain/VideoGameRepository';
 

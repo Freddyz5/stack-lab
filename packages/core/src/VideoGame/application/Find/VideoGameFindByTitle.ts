@@ -1,8 +1,8 @@
-import { VideoGameRepository } from "src/VideoGame/domain/VideoGameRepository";
+import { VideoGameRepository } from "../../domain/VideoGameRepository";
 import { VideoGameFindByTitleRequest } from "./VideoGameFindRequest";
-import { VideoGameTitle } from "src/VideoGame/domain/VideoGameTitle";
-import { PlainDataVideoGame } from "src/VideoGame/domain/VideoGame";
-import { NotFoundError } from "src/shared/domain/value-object/Errors/NotFoundError";
+import { VideoGameTitle } from "../../domain/VideoGameTitle";
+import { PlainDataVideoGame } from "../../domain/VideoGame";
+import { NotFoundError } from "../../../shared/domain/value-object/Errors/NotFoundError";
 
 
 export class VideoGameFindByTitle{

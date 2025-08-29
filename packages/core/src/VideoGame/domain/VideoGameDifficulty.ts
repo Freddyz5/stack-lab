@@ -1,5 +1,5 @@
-import { DifficultyInvalidError } from "src/shared/domain/value-object/Errors/DifficultyInvalidError";
-import { ValueObject } from "src/shared/domain/value-object/ValueObject";
+import { DifficultyInvalidError } from "../../shared/domain/value-object/Errors/DifficultyInvalidError";
+import { ValueObject } from "../../shared/domain/value-object/ValueObject";
 import { string as yupString } from "yup";
 
 export class VideoGameDifficulty extends ValueObject<string> {
