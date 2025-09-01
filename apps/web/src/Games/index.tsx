@@ -50,6 +50,38 @@ const Games = () => {
   const [games, setGames] = useState<VideoGame[]>([]);
   const [isModalOpen, setModalOpen] = useState(false);
 
+  // TODO: usas el hook que te trae todos los games
+  // const { games, isLoading } = useVideoGames();
+  // console.log("games", games)
+  const gamesExample = [
+    {
+      genre: "asd",
+      description: "asd",
+      difficulty: "asd",
+      state: "asd",
+    },
+    {
+      genre: "asd",
+      description: "asd",
+      difficulty: "asd",
+      state: "asd",
+    },
+    {
+      genre: "asd",
+      description: "asd",
+      difficulty: "asd",
+      state: "asd",
+    }
+  ]
+  // TODO: modificar la card de los games para que muestre los datos correctamente
+  // TODO: en el modal usar el modal de HeroUi
+  // TODO: usar formik en el modal
+  // TODO: Implementar un boton en cada card para eliminar o editar
+  // TODO: Mostrar los datos del juego seleccionado en la card
+  // TODO: Implementar servicio y hook de añadir juego
+  // TODO: Implementar servicio y hook de editar juego
+  // TODO: Implementar servicio y hook de eliminar juego
+
   const handleAddGame = (game: VideoGame) => {
     setGames((prev) => [...prev, game]);
     // Aquí puedes enviar los datos a tu API para guardar en la BDD
