@@ -1,7 +1,7 @@
-import { VideoGameRepository } from "src/VideoGame/domain/VideoGameRepository";
+import { VideoGameRepository } from "../../domain/VideoGameRepository";
 import { VideoGameFindByIdRequest } from "./VideoGameFindRequest";
-import { PlainDataVideoGame } from "src/VideoGame/domain/VideoGame";
-import { VideoGameId } from "src/VideoGame/domain/VideoGameId";
+import { PlainDataVideoGame } from "../../domain/VideoGame";
+import { VideoGameId } from "../../domain/VideoGameId";
 
 
 export class VideoGameFindById {

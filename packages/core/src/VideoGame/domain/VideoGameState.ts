@@ -1,5 +1,5 @@
-import { StateInvalidError } from "src/shared/domain/value-object/Errors/StateInvalidError";
-import { ValueObject } from "src/shared/domain/value-object/ValueObject";
+import { StateInvalidError } from "../../shared/domain/value-object/Errors/StateInvalidError";
+import { ValueObject } from "../../shared/domain/value-object/ValueObject";
 import { string as yupString } from "yup";
 
 export class State extends ValueObject<string> {
@@ -11,7 +11,7 @@ export class State extends ValueObject<string> {
   private ensureIsValidState(value: string): void {
     try {
       yupString()
-        .oneOf(["Por Jugar", "No Jugado", "Quiero Jugar", "Jugando", "Jugado"])
+        .oneOf(["por jugar", "no jugado", "quiero jugar", "jugando", "jugado"])
         .required()
         .validateSync(value);
     } catch {

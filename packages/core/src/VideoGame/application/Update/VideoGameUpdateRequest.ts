@@ -1,4 +1,4 @@
-import { PlainDataVideoGame } from "src/VideoGame/domain/VideoGame";
+import { PlainDataVideoGame } from "../../domain/VideoGame";
 
 export interface VideoGameUpdateRequest extends Partial<PlainDataVideoGame>{
     id: string;

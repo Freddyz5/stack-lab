@@ -1,6 +1,6 @@
-import { VideoGameRepository } from 'src/VideoGame/domain/VideoGameRepository';
+import { VideoGameRepository } from '../../domain/VideoGameRepository';
 import { VideoGameDeleteRequest } from './VideoGameDeleteRequest';
-import { VideoGameId } from 'src/VideoGame/domain/VideoGameId';
+import { VideoGameId } from '../../domain/VideoGameId';
 
 export class VideoGameDelete {
   private repository: VideoGameRepository;
