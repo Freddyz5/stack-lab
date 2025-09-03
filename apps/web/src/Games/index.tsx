@@ -1,99 +1,59 @@
-// 'use client';
-// import React from 'react';
-// import TitleGames from './components/TitleGames';
-
-// const Games = () => {
-//   return (
-//     <main className="h-full">
-//       <TitleGames />
-
-//     </main>
-//   );
-// };
-
-// export default Games;
-
-// 'use client';
-// import React, { useState } from 'react';
-// import TitleGames from './components/TitleGames';
-
-// const Games = () => {
-//   const [isModalOpen, setModalOpen] = useState(false);
-
-//   return (
-//     <main className="h-full">
-//       <TitleGames />
-
-//       {/* Botón de añadir */}
-//       <button
-//         onClick={() => setModalOpen(true)}
-//         className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg"
-//       >
-//         Añadir
-//       </button>
-
-//       {/* Aquí más adelante irá tu grid de cartas */}
-//     </main>
-//   );
-// };
-
-// export default Games;
-
-
 'use client';
 import React, { useState } from 'react';
 import TitleGames from './components/TitleGames';
-import Card, { VideoGame } from './components/Card';
+import Card from './components/Card';
+import { NewVideoGame, VideoGame } from '../shared/types/VideoGames';
 import ModalCard from './components/ModalCard';
+import { useVideoGames } from './hooks/useVideoGames';
+import { useAddVideoGame } from './hooks/useAddVideoGame';
+import { useEditVideoGame } from './hooks/useEditVideoGame';
+import { useDeleteVideoGame } from './hooks/useDeleteVideoGame';
 
 const Games = () => {
-  const [games, setGames] = useState<VideoGame[]>([]);
+  const { videoGames, isLoading } = useVideoGames();
   const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedGame, setSelectedGame] = useState<VideoGame | null>(null);
+  const { addVideoGame } = useAddVideoGame();
+  const { editGame } = useEditVideoGame();
+  const { deleteGame } = useDeleteVideoGame();
 
-  // TODO: usas el hook que te trae todos los games
-  // const { games, isLoading } = useVideoGames();
-  // console.log("games", games)
-  const gamesExample = [
-    {
-      genre: "asd",
-      description: "asd",
-      difficulty: "asd",
-      state: "asd",
-    },
-    {
-      genre: "asd",
-      description: "asd",
-      difficulty: "asd",
-      state: "asd",
-    },
-    {
-      genre: "asd",
-      description: "asd",
-      difficulty: "asd",
-      state: "asd",
+  const handleSaveGame = (game: VideoGame | NewVideoGame) => {
+    if ('id' in game) {
+      const { isActive, ...gameInput } = game; // omitimos isActive
+      console.log('Editar juego:', gameInput);
+      editGame(gameInput); // ahora cumple con UpdateVideoGameInput
+    } else {
+      console.log('Nuevo juego:', game);
+      addVideoGame(game); // aquí espera un NewVideoGame
+      // TODO: crear
     }
-  ]
-  // TODO: modificar la card de los games para que muestre los datos correctamente
-  // TODO: en el modal usar el modal de HeroUi
-  // TODO: usar formik en el modal
-  // TODO: Implementar un boton en cada card para eliminar o editar
-  // TODO: Mostrar los datos del juego seleccionado en la card
-  // TODO: Implementar servicio y hook de añadir juego
-  // TODO: Implementar servicio y hook de editar juego
-  // TODO: Implementar servicio y hook de eliminar juego
-
-  const handleAddGame = (game: VideoGame) => {
-    setGames((prev) => [...prev, game]);
-    // Aquí puedes enviar los datos a tu API para guardar en la BDD
+    setModalOpen(false);
+    setSelectedGame(null);
   };
 
+  const handleEdit = (game: VideoGame) => {
+    setSelectedGame(game);
+    setModalOpen(true);
+  };
+
+  const handleDelete = (game: VideoGame) => {
+    console.log('Eliminar juego:', game);
+    deleteGame(game.id);
+    // TODO: llamar a hook o API para eliminar juego
+  };
+
+  if (isLoading) return <p>Cargando juegos...</p>;
+
   return (
-    <main className="h-full">
+    <main>
       <TitleGames />
 
       {/* Botón de añadir */}
       <button
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          setSelectedGame(null); // crear nuevo
+          setModalOpen(true);
+        }}
         className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg"
       >
         Añadir
@@ -101,16 +61,17 @@ const Games = () => {
 
       {/* Grid de cartas */}
       <section className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        {games.map((game) => (
-          <Card key={game.id} game={game} />
+        {videoGames.map((game) => (
+          <Card key={game.id} game={game} onEdit={handleEdit} onDelete={handleDelete} />
         ))}
       </section>
 
-      {/* Modal para agregar un VideoGame */}
+      {/* Modal para agregar/editar un VideoGame */}
       <ModalCard
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onSave={handleAddGame}
+        onSave={handleSaveGame}
+        initialValues={selectedGame || undefined}
       />
     </main>
   );

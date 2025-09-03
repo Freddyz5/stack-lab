@@ -1,107 +1,129 @@
 'use client';
-import React, { useState } from 'react';
-import { VideoGame } from './Card';
-import { v4 as uuidv4 } from 'uuid';
+import React from 'react';
+import { Modal, ModalContent, ModalHeader, ModalBody, Button, useDisclosure } from '@heroui/react';
+import { VideoGame, NewVideoGame } from '../../shared/types/VideoGames';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
 type ModalCardProps = {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (game: VideoGame) => void;
+  onSave: (game: VideoGame | NewVideoGame) => void; // puede ser crear o editar
+  initialValues?: VideoGame; // si existe, estamos editando
 };
 
-const difficulties: VideoGame['difficulty'][] = ['facil', 'dificil', 'experto'];
-const states: VideoGame['state'][] = ['jugado', 'jugando', 'por jugar'];
+const difficulties: VideoGame['difficulty'][] = ['facil', 'medio', 'dificil', 'experto'];
+const states: VideoGame['state'][] = [
+  'por jugar',
+  'no jugado',
+  'quiero jugar',
+  'jugando',
+  'jugado',
+];
 
-const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, onSave }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [genre, setGenre] = useState('');
-  const [difficulty, setDifficulty] = useState<VideoGame['difficulty']>('facil');
-  const [state, setState] = useState<VideoGame['state']>('jugando');
+const validationSchema = Yup.object({
+  title: Yup.string().required('El título es obligatorio'),
+  description: Yup.string().required('La descripción es obligatoria'),
+  genre: Yup.string().required('El género es obligatorio'),
+  state: Yup.string().required('El estado es obligatorio'),
+  difficulty: Yup.string().required('La dificultad es obligatoria'),
+});
 
-  if (!isOpen) return null;
+const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, onSave, initialValues }) => {
+  //const { onOpenChange } = useDisclosure({ isOpen });
 
-  const handleSave = () => {
-    const newGame: VideoGame = {
-      id: uuidv4(),
-      title,
-      description,
-      genre,
-      difficulty,
-      state,
-    };
-    onSave(newGame);
-
-    // Limpiar campos
-    setTitle('');
-    setDescription('');
-    setGenre('');
-    setDifficulty('facil');
-    setState('jugando');
-    onClose();
+  const defaultValues: NewVideoGame = initialValues || {
+    title: '',
+    description: '',
+    genre: '',
+    difficulty: 'facil',
+    state: 'jugando',
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-2xl w-96 text-black flex flex-col gap-4">
-        <h2 className="text-xl font-bold">Agregar VideoGame</h2>
+    <Modal isOpen={isOpen} onOpenChange={onClose}>
+      <ModalContent className="bg-black text-white">
+        {(onCloseModal) => (
+          <>
+            <ModalHeader className="flex flex-col gap-1">
+              {initialValues ? 'Editar VideoGame' : 'Agregar VideoGame'}
+            </ModalHeader>
+            <ModalBody>
+              <Formik
+                initialValues={defaultValues}
+                validationSchema={validationSchema}
+                onSubmit={(values) => {
+                  if (initialValues) {
+                    // edición: mantenemos el id
+                    onSave({ ...values, id: initialValues.id });
+                  } else {
+                    // creación: no mandamos id
+                    onSave(values as NewVideoGame);
+                  }
+                  onCloseModal();
+                }}
+              >
+                {({ errors, touched }) => (
+                  <Form className="flex flex-col gap-3">
+                    <Field name="title" placeholder="Título" className="border p-2 rounded" />
+                    {errors.title && touched.title && (
+                      <div className="text-red-500 text-sm">{errors.title}</div>
+                    )}
 
-        <input
-          type="text"
-          placeholder="Título"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <input
-          type="text"
-          placeholder="Descripción"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <input
-          type="text"
-          placeholder="Género"
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
-          className="border p-2 rounded"
-        />
+                    <Field
+                      name="description"
+                      placeholder="Descripción"
+                      className="border p-2 rounded"
+                    />
+                    {errors.description && touched.description && (
+                      <div className="text-red-500 text-sm">{errors.description}</div>
+                    )}
 
-        <select
-          value={difficulty}
-          onChange={(e) => setDifficulty(e.target.value as VideoGame['difficulty'])}
-          className="border p-2 rounded"
-        >
-          {difficulties.map((d) => (
-            <option key={d} value={d}>
-              {d}
-            </option>
-          ))}
-        </select>
+                    <Field name="genre" placeholder="Género" className="border p-2 rounded" />
+                    {errors.genre && touched.genre && (
+                      <div className="text-red-500 text-sm">{errors.genre}</div>
+                    )}
 
-        <select
-          value={state}
-          onChange={(e) => setState(e.target.value as VideoGame['state'])}
-          className="border p-2 rounded"
-        >
-          {states.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
+                    <Field
+                      as="select"
+                      name="difficulty"
+                      className="border p-2 rounded bg-black text-white"
+                    >
+                      {difficulties.map((d) => (
+                        <option key={d} value={d}>
+                          {d}
+                        </option>
+                      ))}
+                    </Field>
 
-        <div className="flex justify-end gap-2 mt-4">
-          <button onClick={onClose} className="px-4 py-2 bg-gray-300 rounded">
-            Cancelar
-          </button>
-          <button onClick={handleSave} className="px-4 py-2 bg-blue-600 text-white rounded">
-            Guardar
-          </button>
-        </div>
-      </div>
-    </div>
+                    <Field
+                      as="select"
+                      name="state"
+                      className="border p-2 rounded bg-black text-white"
+                    >
+                      {states.map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </Field>
+
+                    <div className="flex justify-end gap-2 mt-4">
+                      <Button color="danger" variant="light" onPress={onCloseModal}>
+                        Cancelar
+                      </Button>
+                      <Button color="primary" type="submit">
+                        {initialValues ? 'Guardar Cambios' : 'Agregar'}
+                      </Button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </ModalBody>
+          </>
+        )}
+      </ModalContent>
+    </Modal>
   );
 };
 
