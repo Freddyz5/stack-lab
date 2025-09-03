@@ -8,6 +8,7 @@ import { useVideoGames } from './hooks/useVideoGames';
 import { useAddVideoGame } from './hooks/useAddVideoGame';
 import { useEditVideoGame } from './hooks/useEditVideoGame';
 import { useDeleteVideoGame } from './hooks/useDeleteVideoGame';
+import { Button } from '@heroui/react';
 
 const Games = () => {
   const { videoGames, isLoading } = useVideoGames();
@@ -25,7 +26,6 @@ const Games = () => {
     } else {
       console.log('Nuevo juego:', game);
       addVideoGame(game); // aquí espera un NewVideoGame
-      // TODO: crear
     }
     setModalOpen(false);
     setSelectedGame(null);
@@ -39,7 +39,6 @@ const Games = () => {
   const handleDelete = (game: VideoGame) => {
     console.log('Eliminar juego:', game);
     deleteGame(game.id);
-    // TODO: llamar a hook o API para eliminar juego
   };
 
   if (isLoading) return <p>Cargando juegos...</p>;
@@ -48,25 +47,26 @@ const Games = () => {
     <main>
       <TitleGames />
 
-      {/* Botón de añadir */}
-      <button
-        onClick={() => {
-          setSelectedGame(null); // crear nuevo
-          setModalOpen(true);
-        }}
-        className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg"
-      >
-        Añadir
-      </button>
+      <div className="p-5">
+        <Button
+          color="primary"
+          variant="bordered"
+          className="mt-4"
+          onClick={() => {
+            setSelectedGame(null);
+            setModalOpen(true);
+          }}
+        >
+          Añadir
+        </Button>
 
-      {/* Grid de cartas */}
-      <section className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        {videoGames.map((game) => (
-          <Card key={game.id} game={game} onEdit={handleEdit} onDelete={handleDelete} />
-        ))}
-      </section>
+        <section className="mt-6 flex flex-wrap justify-center gap-4">
+          {videoGames.map((game) => (
+            <Card key={game.id} game={game} onEdit={handleEdit} onDelete={handleDelete} />
+          ))}
+        </section>
+      </div>
 
-      {/* Modal para agregar/editar un VideoGame */}
       <ModalCard
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}

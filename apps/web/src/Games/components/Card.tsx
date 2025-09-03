@@ -1,6 +1,7 @@
 'use client';
-import React from 'react';
-import { Card as HCard, CardHeader, CardBody, Image, Button } from '@heroui/react';
+import React, { JSX } from 'react';
+import {Card as HCard, CardHeader, CardBody, Image, Button, Dropdown, 
+  DropdownItem, DropdownMenu, DropdownTrigger,} from '@heroui/react';
 import { VideoGame } from '../../shared/types/VideoGames';
 
 type CardProps = {
@@ -12,21 +13,28 @@ type CardProps = {
 const Card: React.FC<CardProps> = ({ game, onEdit, onDelete }) => {
   return (
     <HCard className="relative w-64 p-4 flex flex-col gap-2">
-      {/* Botón de acciones en la esquina superior derecha */}
-      {(onEdit || onDelete) && (
-        <div className="absolute top-2 right-2 flex gap-1">
-          {onEdit && (
-            <Button size="sm" color="primary" onPress={() => onEdit(game)}>
-              Edit
+      <div className="absolute top-2 right-2">
+        <Dropdown>
+          <DropdownTrigger>
+            <Button size="sm" variant="ghost">
+              ⋮
             </Button>
-          )}
-          {onDelete && (
-            <Button size="sm" color="danger" onPress={() => onDelete(game)}>
-              Delete
-            </Button>
-          )}
-        </div>
-      )}
+          </DropdownTrigger>
+
+          <DropdownMenu className="bg-gray-100 text-black">
+            <DropdownItem key="edit" onPress={() => onEdit && onEdit(game)}>
+              Editar
+            </DropdownItem>
+            <DropdownItem
+              className="text-danger"
+              key="delete"
+              onPress={() => onDelete && onDelete(game)}
+            >
+              Eliminar
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
 
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
         <h4 className="font-bold text-large">{game.title}</h4>
