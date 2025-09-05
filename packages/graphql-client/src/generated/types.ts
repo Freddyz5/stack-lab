@@ -2,9 +2,7 @@ export default {
     "scalars": [
         1,
         2,
-        3,
-        12,
-        18
+        3
     ],
     "types": {
         "User": {
@@ -118,16 +116,10 @@ export default {
                     ]
                 }
             ],
-            "getUserCategories": [
-                9,
-                {
-                    "userId": [
-                        1,
-                        "ID!"
-                    ]
-                }
+            "getVideoGames": [
+                9
             ],
-            "getCategory": [
+            "getVideoGame": [
                 9,
                 {
                     "id": [
@@ -136,48 +128,12 @@ export default {
                     ]
                 }
             ],
-            "getUserBoards": [
-                13,
+            "getVideoGameByTitle": [
+                9,
                 {
-                    "userId": [
-                        1,
-                        "ID!"
-                    ]
-                }
-            ],
-            "getTransaction": [
-                17,
-                {
-                    "id": [
-                        1,
-                        "ID!"
-                    ]
-                }
-            ],
-            "getCategoryTransactions": [
-                17,
-                {
-                    "categoryId": [
-                        1,
-                        "ID!"
-                    ]
-                }
-            ],
-            "getBoardTransactions": [
-                19,
-                {
-                    "boardId": [
-                        1,
-                        "ID!"
-                    ]
-                }
-            ],
-            "getDateTransactions": [
-                17,
-                {
-                    "date": [
-                        12,
-                        "DateTime!"
+                    "title": [
+                        2,
+                        "String!"
                     ]
                 }
             ],
@@ -213,79 +169,25 @@ export default {
                     ]
                 }
             ],
-            "createCategory": [
+            "createVideoGame": [
                 3,
                 {
                     "input": [
                         10,
-                        "createCategoryInput!"
+                        "createVideoGameInput!"
                     ]
                 }
             ],
-            "updateCategory": [
+            "updateVideoGame": [
                 3,
                 {
                     "input": [
                         11,
-                        "updateCategoryInput!"
+                        "updateVideoGameInput!"
                     ]
                 }
             ],
-            "deleteCategory": [
-                3,
-                {
-                    "id": [
-                        1,
-                        "ID!"
-                    ]
-                }
-            ],
-            "createBoard": [
-                3,
-                {
-                    "input": [
-                        15,
-                        "createBoardInput!"
-                    ]
-                }
-            ],
-            "updateBoard": [
-                3,
-                {
-                    "input": [
-                        16,
-                        "updateBoardInput!"
-                    ]
-                }
-            ],
-            "deleteBoard": [
-                3,
-                {
-                    "id": [
-                        1,
-                        "ID!"
-                    ]
-                }
-            ],
-            "createTransaction": [
-                3,
-                {
-                    "input": [
-                        21,
-                        "createTransactionInput!"
-                    ]
-                }
-            ],
-            "updateTransaction": [
-                3,
-                {
-                    "input": [
-                        22,
-                        "updateTransactionInput!"
-                    ]
-                }
-            ],
-            "deleteTransaction": [
+            "deleteVideoGame": [
                 3,
                 {
                     "id": [
@@ -298,219 +200,70 @@ export default {
                 2
             ]
         },
-        "Category": {
+        "VideoGame": {
             "id": [
                 1
             ],
-            "name": [
+            "title": [
                 2
-            ],
-            "type": [
-                2
-            ],
-            "icon": [
-                2
-            ],
-            "userId": [
-                1
-            ],
-            "__typename": [
-                2
-            ]
-        },
-        "createCategoryInput": {
-            "name": [
-                2
-            ],
-            "type": [
-                2
-            ],
-            "icon": [
-                2
-            ],
-            "userId": [
-                1
-            ],
-            "__typename": [
-                2
-            ]
-        },
-        "updateCategoryInput": {
-            "id": [
-                1
-            ],
-            "name": [
-                2
-            ],
-            "type": [
-                2
-            ],
-            "icon": [
-                2
-            ],
-            "userId": [
-                1
-            ],
-            "__typename": [
-                2
-            ]
-        },
-        "DateTime": {},
-        "Board": {
-            "id": [
-                1
-            ],
-            "name": [
-                2
-            ],
-            "owner": [
-                4
-            ],
-            "createdAt": [
-                12
-            ],
-            "boardPermissions": [
-                14
-            ],
-            "__typename": [
-                2
-            ]
-        },
-        "BoardPermission": {
-            "permissions": [
-                2
-            ],
-            "user": [
-                4
-            ],
-            "__typename": [
-                2
-            ]
-        },
-        "createBoardInput": {
-            "owner": [
-                1
-            ],
-            "name": [
-                2
-            ],
-            "__typename": [
-                2
-            ]
-        },
-        "updateBoardInput": {
-            "owner": [
-                1
-            ],
-            "name": [
-                2
-            ],
-            "__typename": [
-                2
-            ]
-        },
-        "Transaction": {
-            "id": [
-                1
             ],
             "description": [
                 2
             ],
-            "amount": [
-                18
+            "genre": [
+                2
             ],
-            "date": [
-                12
+            "difficulty": [
+                2
             ],
-            "categoryId": [
-                1
+            "state": [
+                2
             ],
-            "boardId": [
-                1
+            "isActive": [
+                3
             ],
             "__typename": [
                 2
             ]
         },
-        "Float": {},
-        "BoardTransaction": {
-            "id": [
-                1
+        "createVideoGameInput": {
+            "title": [
+                2
             ],
             "description": [
                 2
             ],
-            "amount": [
-                18
+            "genre": [
+                2
             ],
-            "date": [
-                12
+            "difficulty": [
+                2
             ],
-            "category": [
-                20
-            ],
-            "boardId": [
-                1
+            "state": [
+                2
             ],
             "__typename": [
                 2
             ]
         },
-        "CategoryTransaction": {
+        "updateVideoGameInput": {
             "id": [
                 1
             ],
-            "name": [
+            "title": [
                 2
-            ],
-            "type": [
-                2
-            ],
-            "icon": [
-                2
-            ],
-            "__typename": [
-                2
-            ]
-        },
-        "createTransactionInput": {
-            "description": [
-                2
-            ],
-            "amount": [
-                18
-            ],
-            "date": [
-                12
-            ],
-            "categoryId": [
-                1
-            ],
-            "boardId": [
-                1
-            ],
-            "__typename": [
-                2
-            ]
-        },
-        "updateTransactionInput": {
-            "id": [
-                1
             ],
             "description": [
                 2
             ],
-            "amount": [
-                18
+            "genre": [
+                2
             ],
-            "date": [
-                12
+            "difficulty": [
+                2
             ],
-            "categoryId": [
-                1
-            ],
-            "boardId": [
-                1
+            "state": [
+                2
             ],
             "__typename": [
                 2

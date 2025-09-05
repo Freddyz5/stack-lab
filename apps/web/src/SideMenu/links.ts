@@ -1,6 +1,7 @@
 import {
   LucideIcon,
   ChartArea,
+  Gamepad,
 } from 'lucide-react';
 
 export type LinkItem = {
@@ -15,6 +16,11 @@ const menuLinks: LinkItem[] = [
     href: '/dashboard',
     icon: ChartArea,
   },
+  {
+    name : 'Games',
+    href: '/games',
+    icon: Gamepad,
+  }
 ];
 
 export const links = {
