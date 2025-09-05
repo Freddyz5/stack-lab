@@ -13,12 +13,6 @@ export const useVideoGames = () => {
   });
 
   useEffect(() => {
-    if (videoGames.length > 0) {
-      enqueueSnack('Videojuegos cargados 🎮', 'success');
-    }
-  }, [videoGames, enqueueSnack]);
-
-  useEffect(() => {
     if (isError && error) {
       enqueueSnack(error.message, 'error');
       console.log(error);

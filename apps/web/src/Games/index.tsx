@@ -2,11 +2,9 @@
 import React, { useState } from 'react';
 import TitleGames from './components/TitleGames';
 import Card from './components/Card';
-import { NewVideoGame, VideoGame } from '../shared/types/VideoGames';
+import { VideoGame } from '../shared/types/VideoGames';
 import ModalCard from './components/ModalCard';
 import { useVideoGames } from './hooks/useVideoGames';
-import { useAddVideoGame } from './hooks/useAddVideoGame';
-import { useEditVideoGame } from './hooks/useEditVideoGame';
 import { useDeleteVideoGame } from './hooks/useDeleteVideoGame';
 import { Button } from '@heroui/react';
 
@@ -14,22 +12,9 @@ const Games = () => {
   const { videoGames, isLoading } = useVideoGames();
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<VideoGame | null>(null);
-  const { addVideoGame } = useAddVideoGame();
-  const { editGame } = useEditVideoGame();
   const { deleteGame } = useDeleteVideoGame();
 
-  const handleSaveGame = (game: VideoGame | NewVideoGame) => {
-    if ('id' in game) {
-      const { isActive, ...gameInput } = game; // omitimos isActive
-      console.log('Editar juego:', gameInput);
-      editGame(gameInput); // ahora cumple con UpdateVideoGameInput
-    } else {
-      console.log('Nuevo juego:', game);
-      addVideoGame(game); // aquí espera un NewVideoGame
-    }
-    setModalOpen(false);
-    setSelectedGame(null);
-  };
+  console.log("videoGames", videoGames)
 
   const handleEdit = (game: VideoGame) => {
     setSelectedGame(game);
@@ -37,7 +22,6 @@ const Games = () => {
   };
 
   const handleDelete = (game: VideoGame) => {
-    console.log('Eliminar juego:', game);
     deleteGame(game.id);
   };
 
@@ -70,7 +54,6 @@ const Games = () => {
       <ModalCard
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onSave={handleSaveGame}
         initialValues={selectedGame || undefined}
       />
     </main>

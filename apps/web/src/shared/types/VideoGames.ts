@@ -5,7 +5,6 @@ export type VideoGame = {
   genre: string;
   difficulty: string;
   state: string;
-  isActive: boolean; 
 };
 
 export type NewVideoGame = Omit<VideoGame, "id" | "isActive">;

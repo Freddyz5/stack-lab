@@ -3,6 +3,7 @@ import React, { JSX } from 'react';
 import {Card as HCard, CardHeader, CardBody, Image, Button, Dropdown, 
   DropdownItem, DropdownMenu, DropdownTrigger,} from '@heroui/react';
 import { VideoGame } from '../../shared/types/VideoGames';
+import { Menu } from 'lucide-react'
 
 type CardProps = {
   game: VideoGame;
@@ -16,8 +17,12 @@ const Card: React.FC<CardProps> = ({ game, onEdit, onDelete }) => {
       <div className="absolute top-2 right-2">
         <Dropdown>
           <DropdownTrigger>
-            <Button size="sm" variant="ghost">
-              ⋮
+            <Button 
+              size="sm"
+              variant="ghost"
+              isIconOnly
+            >
+              <Menu />
             </Button>
           </DropdownTrigger>
 

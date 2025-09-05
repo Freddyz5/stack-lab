@@ -2,35 +2,21 @@
 import React from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, Button, useDisclosure } from '@heroui/react';
 import { VideoGame, NewVideoGame } from '../../shared/types/VideoGames';
+import { difficulties, states } from '../constants/videoGameOptions';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+import { validationSchema } from '../utils/schema';
+import { useAddVideoGame } from '../hooks/useAddVideoGame';
+import { useEditVideoGame } from '../hooks/useEditVideoGame';
 
 type ModalCardProps = {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (game: VideoGame | NewVideoGame) => void; // puede ser crear o editar
-  initialValues?: VideoGame; // si existe, estamos editando
+  initialValues?: VideoGame;
 };
 
-const difficulties: VideoGame['difficulty'][] = ['facil', 'medio', 'dificil', 'experto'];
-const states: VideoGame['state'][] = [
-  'por jugar',
-  'no jugado',
-  'quiero jugar',
-  'jugando',
-  'jugado',
-];
-
-const validationSchema = Yup.object({
-  title: Yup.string().required('El título es obligatorio'),
-  description: Yup.string().required('La descripción es obligatoria'),
-  genre: Yup.string().required('El género es obligatorio'),
-  state: Yup.string().required('El estado es obligatorio'),
-  difficulty: Yup.string().required('La dificultad es obligatoria'),
-});
-
-const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, onSave, initialValues }) => {
-  //const { onOpenChange } = useDisclosure({ isOpen });
+const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, initialValues }) => {
+  const { addVideoGame } = useAddVideoGame();
+  const { editGame } = useEditVideoGame();
 
   const defaultValues: NewVideoGame = initialValues || {
     title: '',
@@ -38,6 +24,19 @@ const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, onSave, initialV
     genre: '',
     difficulty: 'facil',
     state: 'jugando',
+  };
+
+  const handleOnSubmit = (values: NewVideoGame) => {
+    if (initialValues) {
+      editGame({
+        ...values,
+        id: initialValues.id,
+      });
+      onClose();
+    } else {
+      addVideoGame(values);
+      onClose();
+    }
   };
 
   return (
@@ -52,16 +51,7 @@ const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, onSave, initialV
               <Formik
                 initialValues={defaultValues}
                 validationSchema={validationSchema}
-                onSubmit={(values) => {
-                  if (initialValues) {
-                    // edición: mantenemos el id
-                    onSave({ ...values, id: initialValues.id });
-                  } else {
-                    // creación: no mandamos id
-                    onSave(values as NewVideoGame);
-                  }
-                  onCloseModal();
-                }}
+                onSubmit={handleOnSubmit}
               >
                 {({ errors, touched }) => (
                   <Form className="flex flex-col gap-3">
