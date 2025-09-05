@@ -21,6 +21,7 @@ const Card: React.FC<CardProps> = ({ game, onEdit, onDelete }) => {
               size="sm"
               variant="ghost"
               isIconOnly
+              className='z-20'
             >
               <Menu />
             </Button>
